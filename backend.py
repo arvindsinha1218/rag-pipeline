@@ -26,6 +26,8 @@ from pydantic import BaseModel, Field
 
 from langchain_openai import ChatOpenAI
 
+from langchain_google_genai import ChatGoogleGenerativeAI
+
 from langchain_core.prompts import (
     ChatPromptTemplate,
     MessagesPlaceholder,
@@ -54,8 +56,9 @@ from langchain_core.runnables.history import (
 
 load_dotenv()
 
-openai_api_key = os.getenv("OPENAI_API_KEY")
+#openai_api_key = os.getenv("OPENAI_API_KEY")
 pinecone_api_key = os.getenv("PINECONE_API_KEY")
+gemini_api_key = os.getenv("GEMINI_API_KEY")
 
 RESUME_INDEX_NAME = "resume-hybrid-index"
 
@@ -93,9 +96,14 @@ index = pc.Index(RESUME_INDEX_NAME)
 # LLM
 # ============================================================
 
-llm = ChatOpenAI(
-    model="gpt-4.1",
-    api_key=openai_api_key
+# llm = ChatOpenAI(
+#     model="gpt-4.1",
+#     api_key=openai_api_key
+# )
+
+llm = ChatGoogleGenerativeAI(
+    model = "gemini-2.5-flash-lite",
+    api_key = gemini_api_key,
 )
 
 # ============================================================
